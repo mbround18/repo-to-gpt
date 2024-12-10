@@ -1,0 +1,57 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    name: Build Binaries
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        target: [x86_64-unknown-linux-gnu, x86_64-pc-windows-msvc]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+          target: ${{ matrix.target }}
+
+      - name: Build Binary
+        run: cargo build --release --target ${{ matrix.target }}
+
+      - name: Archive Binary
+        run: |
+          mkdir -p dist
+          cp target/${{ matrix.target }}/release/your_binary_name dist/your_binary_name-${{ matrix.os }}-${{ matrix.target }}
+        shell: bash
+
+  release:
+    name: Release Binaries
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Binaries
+        uses: actions/download-artifact@v3
+        with:
+          name: release-binaries
+          path: dist/
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          artifacts: dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
