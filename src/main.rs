@@ -33,7 +33,8 @@ fn main() -> io::Result<()> {
 
     let mut walk_builder = WalkBuilder::new(input_path);
 
-    if args.use_gitignore {
+    let gitignore_path = Path::new(input_folder).join(".gitignore");
+    if gitignore_path.exists() {
         let mut gitignore_builder = GitignoreBuilder::new(input_path);
         gitignore_builder.add(Path::new(input_folder).join(".gitignore"));
         if let Ok(gitignore) = gitignore_builder.build() {

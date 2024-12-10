@@ -19,7 +19,7 @@
 To install the tool, clone the repository and build it using `cargo`:
 
 ```bash
-git clone github.com:mbround18/repo-to-gpt.git
+git clone git@github.com:mbround18/repo-to-gpt.git
 cd repo-to-gpt
 cargo install --path .
 ```
@@ -38,10 +38,9 @@ repo-to-gpt --input <INPUT_FOLDER> --output <OUTPUT_FILE>
 
 - `--input <INPUT_FOLDER>` (required): Specifies the folder to scan.
 - `--output <OUTPUT_FILE>` (optional, default: `gpt.json`): Specifies the output JSON file.
-- `--excluded <EXCLUDED_DIRS>`: Comma-separated list of directories to exclude (e.g., `node_modules,dist`).
-- `--ignored <IGNORED_EXTENSIONS>`: Comma-separated list of file extensions to ignore (e.g., `.log,.tmp`).
-- `--use-gitignore`: Use `.gitignore` to exclude files and directories.
-- `--pretty`: Output JSON in a pretty-printed format instead of minified.
+- `--excluded <EXCLUDED_DIRS>` (optional): Comma-separated list of directories to exclude (e.g., `node_modules,dist`).
+- `--ignored <IGNORED_EXTENSIONS>` (optional): Comma-separated list of file extensions to ignore (e.g., `.log,.tmp`).
+- `--pretty` (optional, default: `false`): Outputs JSON in a pretty-printed format instead of minified.
 
 ### Example Commands
 
@@ -51,10 +50,10 @@ repo-to-gpt --input <INPUT_FOLDER> --output <OUTPUT_FILE>
 repo-to-gpt --input ./my_project --output my_project.json
 ```
 
-#### Use `.gitignore` and Pretty-Print JSON
+#### Use Pretty-Print JSON
 
 ```bash
-repo-to-gpt --input ./my_project --output my_project.json --use-gitignore --pretty
+repo-to-gpt --input ./my_project --output my_project.json --pretty
 ```
 
 #### Customize Excluded Directories and Ignored Extensions

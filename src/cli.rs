@@ -28,13 +28,6 @@ pub struct Args {
     )]
     pub(crate) ignored: String,
 
-    #[arg(
-        long,
-        default_value = "true",
-        value_name = "USE_GITIGNORE",
-        help = "Whether to use .gitignore for excluded directories"
-    )]
-    pub(crate) use_gitignore: bool,
 
     #[arg(long, help = "Output pretty-printed JSON instead of minified")]
     pub(crate) pretty: bool,
